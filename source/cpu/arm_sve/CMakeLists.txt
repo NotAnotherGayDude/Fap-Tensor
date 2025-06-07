@@ -17,7 +17,7 @@
 # 2025
 # */
 
-message(STATUS "Fap-Tensor: Configuring ARM SVE optimizations")
+message(STATUS "RT-TM: Configuring ARM SVE optimizations")
 
 file(GLOB_RECURSE RT_TM_ARM_SVE_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"

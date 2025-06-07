@@ -17,7 +17,7 @@
 # 2025
 # */
 
-message(STATUS "Fap-Tensor: Configuring AVX2 optimizations")
+message(STATUS "RT-TM: Configuring AVX2 optimizations")
 
 file(GLOB_RECURSE RT_TM_AVX2_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"

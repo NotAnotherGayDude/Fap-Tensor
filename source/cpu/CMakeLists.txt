@@ -17,7 +17,7 @@
 # 2025
 # */
 
-message(STATUS "Fap-Tensor: Configuring CPU variant subdirectories with centralized flags")
+message(STATUS "RT-TM: Configuring CPU variant subdirectories with centralized flags")
 
 set(RT_TM_X64_BIT_MANIPULATION_FLAGS
     "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-mlzcnt>"
@@ -69,14 +69,14 @@ function(rt_tm_configure_arm_variant target_name)
 endfunction()
 
 if(RT_TM_ARCH_X64)
-    message(STATUS "Fap-Tensor: Building ALL x64 SIMD variants")
+    message(STATUS "RT-TM: Building ALL x64 SIMD variants")
     add_subdirectory(avx_2)
     add_subdirectory(avx_512)    
 elseif(RT_TM_ARCH_ARM64)
-    message(STATUS "Fap-Tensor: Building ALL ARM64 SIMD variants")
+    message(STATUS "RT-TM: Building ALL ARM64 SIMD variants")
     add_subdirectory(arm_neon)
     add_subdirectory(arm_sve)
 endif()
 
-message(STATUS "Fap-Tensor: CPU variants configured with centralized flag management")
-message(STATUS "Fap-Tensor: Runtime CPU detection will select optimal implementation")
+message(STATUS "RT-TM: CPU variants configured with centralized flag management")
+message(STATUS "RT-TM: Runtime CPU detection will select optimal implementation")

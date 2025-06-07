@@ -27,22 +27,22 @@ set(ENV{CMAKE_INSTALL_PREFIX} "${CMAKE_SOURCE_DIR}/../Install")
 project(
     "${PROJECT_NAME}"
     VERSION "1.0.0"
-    DESCRIPTION "Fap-Tensor: FakeTime Tensor Language - You trained the model. Fap-Tensor gives it a voice."
+    DESCRIPTION "RT-TM: FakeTime Tensor Language - You trained the model. RT-TM gives it a voice."
     LANGUAGES CXX
 )
 
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|AMD64")
     set(RT_TM_ARCH_X64 TRUE)
     set(RT_TM_BUILD_ALL_X64_VARIANTS TRUE)
-    message(STATUS "Fap-Tensor: Building ALL x64 SIMD variants for runtime selection")
+    message(STATUS "RT-TM: Building ALL x64 SIMD variants for runtime selection")
 elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64|ARM64")
     set(RT_TM_ARCH_ARM64 TRUE)
     set(RT_TM_BUILD_ALL_ARM_VARIANTS TRUE)
-    message(STATUS "Fap-Tensor: Building ALL ARM64 SIMD variants for runtime selection")
+    message(STATUS "RT-TM: Building ALL ARM64 SIMD variants for runtime selection")
 endif()
 
-message(STATUS "Fap-Tensor: Detected architecture: ${CMAKE_SYSTEM_PROCESSOR}")
-message(STATUS "Fap-Tensor: Universal binary strategy: Runtime CPU detection")
+message(STATUS "RT-TM: Detected architecture: ${CMAKE_SYSTEM_PROCESSOR}")
+message(STATUS "RT-TM: Universal binary strategy: Runtime CPU detection")
 
 add_library("${PROJECT_NAME}" INTERFACE)
 add_library("${PROJECT_NAME}::${PROJECT_NAME}" ALIAS "${PROJECT_NAME}")
@@ -74,7 +74,7 @@ set(RT_RM_COMMON_COMPILE_FLAGS
     "$<$<BOOL:${PGO_USE}>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-fprofile-use>>"
     "$<$<CONFIG:RELEASE>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-ffast-math>>"
     "$<$<CXX_COMPILER_ID:MSVC>:/bigobj>""$<$<CXX_COMPILER_ID:CLANG>:-Wnull-dereference>"
-    "$<$<CXX_COMPILER_ID:MSVC>:$<$<STREQUAL:${ASAN_ENABLED},TRUE>:/fsanitize=address>>"
+    #"$<$<CXX_COMPILER_ID:MSVC>:$<$<STREQUAL:${ASAN_ENABLED},TRUE>:/fsanitize=address>>"
     "$<$<CONFIG:RELEASE>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-O3>>"
     "$<$<CONFIG:DEBUG>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-O0>>"
     "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-fprefetch-loop-arrays>"
@@ -140,10 +140,10 @@ add_subdirectory(source/cpu)
 
 if(RT_TM_ARCH_X64)
     target_link_libraries("${PROJECT_NAME}" INTERFACE rt_tm::avx2 rt_tm::avx512)
-    message(STATUS "Fap-Tensor: Main library linked with ALL x64 variants")
+    message(STATUS "RT-TM: Main library linked with ALL x64 variants")
 elseif(RT_TM_ARCH_ARM64)
     target_link_libraries("${PROJECT_NAME}" INTERFACE rt_tm::arm_neon rt_tm::arm_sve)
-    message(STATUS "Fap-Tensor: Main library linked with ALL ARM64 variants")
+    message(STATUS "RT-TM: Main library linked with ALL ARM64 variants")
 endif()
 
 set(CONFIG_FILE_NAME "${PROJECT_NAME}Config.cmake")
@@ -202,7 +202,7 @@ install(
 )
 
 message(STATUS "")
-message(STATUS "Fap-Tensor Configuration Summary:")
+message(STATUS "RT-TM Configuration Summary:")
 message(STATUS "==========================")
 message(STATUS "Version: ${PROJECT_VERSION}")
 message(STATUS "Architecture: ${CMAKE_SYSTEM_PROCESSOR}")
@@ -216,7 +216,7 @@ if(RT_TM_BUILD_ALL_ARM_VARIANTS)
     message(STATUS "ARM Variants: NEON, SVE (All built)")
 endif()
 message(STATUS "")
-message(STATUS "Fap-Tensor: FakeTime Tensor Language")
+message(STATUS "RT-TM: FakeTime Tensor Language")
 message(STATUS "The fastest tensor computation library on Earth")
 message(STATUS "Universal binaries with runtime CPU detection")
 message(STATUS "")

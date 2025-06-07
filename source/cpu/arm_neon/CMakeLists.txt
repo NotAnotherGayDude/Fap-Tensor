@@ -17,7 +17,7 @@
 # 2025
 # */
 
-message(STATUS "Fap-Tensor: Configuring ARM NEON optimizations")
+message(STATUS "RT-TM: Configuring ARM NEON optimizations")
 
 file(GLOB_RECURSE RT_TM_ARM_NEON_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
