@@ -40,7 +40,8 @@ namespace rt_tm {
 		  public get_core_traits_base_t<indices, typename op_type_type<config.arch>::type, model<indices, config>,
 			  model_traits<config.arch, config.model_size, config.model_generation>, kernel_type_profile_traits<config.kernel_profile>>,
 		  public thread_pool<indices, model<indices, config>, model_traits<config.arch, config.model_size, config.model_generation>,
-			  kernel_type_profile_traits<config.kernel_profile>> {
+			  kernel_type_profile_traits<config.kernel_profile>>,
+		  public hyper_parameters<config.arch> {
 		using core_bases_type				  = get_core_traits_base_t<indices, typename op_type_type<config.arch>::type, model<indices, config>,
 							model_traits<config.arch, config.model_size, config.model_generation>, kernel_type_profile_traits<config.kernel_profile>>;
 		using model_traits_type				  = model_traits<config.arch, config.model_size, config.model_generation>;
@@ -54,7 +55,7 @@ namespace rt_tm {
 		RT_TM_FORCE_INLINE model(model&&)				  = delete;
 		RT_TM_FORCE_INLINE model& operator=(const model&) = delete;
 		RT_TM_FORCE_INLINE model(const model&)			  = delete;
-		RT_TM_FORCE_INLINE model(const std::string_view&, uint64_t thread_count = 32)
+		RT_TM_FORCE_INLINE model(const std::string_view& path_to_model_file, uint64_t thread_count = 32)
 			: thread_pool<indices, model<indices, config>, model_traits<config.arch, config.model_size, config.model_generation>,
 				  kernel_type_profile_traits<config.kernel_profile>>{ thread_count } {
 			memory.init(total_required_bytes);

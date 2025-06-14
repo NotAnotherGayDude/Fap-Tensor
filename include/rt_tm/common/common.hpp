@@ -34,42 +34,40 @@ RealTimeChris (Chris M.)
 
 namespace rt_tm {
 
-	struct alignas(64) latch_wrapper {
-		RT_TM_FORCE_INLINE latch_wrapper() noexcept								   = default;
-		RT_TM_FORCE_INLINE latch_wrapper& operator=(const latch_wrapper&) noexcept = delete;
-		RT_TM_FORCE_INLINE latch_wrapper(const latch_wrapper&) noexcept			   = delete;
-		RT_TM_FORCE_INLINE latch_wrapper(uint64_t count) : sync_flag{ static_cast<ptrdiff_t>(count) } {
-		}
-		alignas(64) std::latch sync_flag{ 0 };
-	};
+	struct alignas(64) slim_latch {
+		RT_TM_FORCE_INLINE slim_latch() = default;
+		RT_TM_FORCE_INLINE slim_latch(const slim_latch&) {};
+		alignas(64) std::atomic<uint32_t> count;
+		RT_TM_FORCE_INLINE void arrive_and_wait() {
+			if (count.fetch_sub(1, std::memory_order_acq_rel) == 1) {
+				count.notify_all();
+			} else {
+				for (int i = 0; i < 100 && count.load(std::memory_order_acquire) != 0; ++i) {
+					rt_tm_pause();
+				}
+				count.wait(0);
+			}
+		}  
 
-	struct alignas(64) latch_wrapper_holder {
-		RT_TM_FORCE_INLINE latch_wrapper_holder() noexcept										 = default;
-		RT_TM_FORCE_INLINE latch_wrapper_holder& operator=(const latch_wrapper_holder&) noexcept = delete;
-		RT_TM_FORCE_INLINE latch_wrapper_holder(const latch_wrapper_holder&) noexcept			 = delete;
-		RT_TM_FORCE_INLINE latch_wrapper_holder& operator=(latch_wrapper_holder&&) noexcept		 = default;
-		RT_TM_FORCE_INLINE latch_wrapper_holder(latch_wrapper_holder&&) noexcept				 = default;
-		RT_TM_FORCE_INLINE void reset(uint64_t count) {
-			sync_flag = std::make_unique<latch_wrapper>(count);
+		RT_TM_FORCE_INLINE void wait() {
+			count.wait(0);
 		}
-
-		RT_TM_FORCE_INLINE bool try_wait() {
-			return sync_flag->sync_flag.try_wait();
+		RT_TM_FORCE_INLINE void reset(size_t value) {
+			count.store(value, std::memory_order_release);
 		}
 
 		RT_TM_FORCE_INLINE void count_down() {
-			sync_flag->sync_flag.count_down();
+			count.store(0, std::memory_order_release);
 		}
 
-		RT_TM_FORCE_INLINE void arrive_and_wait() {
-			sync_flag->sync_flag.arrive_and_wait();
-		}
+		RT_TM_FORCE_INLINE bool try_wait() {
+			return count.load(std::memory_order_acquire) > 0;
+		};
+	};
 
-		RT_TM_FORCE_INLINE void wait() {
-			sync_flag->sync_flag.wait();
-		}
-
-		alignas(64) std::unique_ptr<latch_wrapper> sync_flag{};
+	struct alignas(64) block_sync {
+		alignas(64) slim_latch start;
+		alignas(64) slim_latch end;
 	};
 
 	template<typename value_type>

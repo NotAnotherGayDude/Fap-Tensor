@@ -72,6 +72,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::token_embd_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -93,6 +94,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::inp_tokens };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -114,6 +116,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::inp_pos };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -135,6 +138,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::inp_out_ids };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -156,6 +160,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::rope_freqs_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -177,6 +182,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::output_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -198,6 +204,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::output_norm_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -219,6 +226,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::attn_q_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -240,6 +248,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::attn_k_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -261,6 +270,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::attn_v_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -282,6 +292,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::attn_output_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -303,6 +314,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::attn_norm_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -324,6 +336,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::ffn_gate_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -345,6 +358,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::ffn_up_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -366,6 +380,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::ffn_down_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -387,6 +402,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::ffn_norm_weight };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -408,6 +424,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::cache_k };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -429,6 +446,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::cache_v };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -450,6 +468,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::kq_mask };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -477,6 +496,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::inp_embd };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -503,6 +523,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::norm };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -530,6 +551,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::attn_norm };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -555,10 +577,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::per_block };
 		static constexpr kernel_type krn_type{ kernel_type::mul_mat };
 		static constexpr llama_op_types type{ llama_op_types::qcur };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -583,6 +606,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::qcur_reshaped };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -611,6 +635,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::qcur_rope };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -636,10 +661,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::per_block };
 		static constexpr kernel_type krn_type{ kernel_type::mul_mat };
 		static constexpr llama_op_types type{ llama_op_types::kcur };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -664,6 +690,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::kcur_reshaped };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -692,6 +719,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::kcur_rope };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -717,10 +745,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::per_block };
 		static constexpr kernel_type krn_type{ kernel_type::mul_mat };
 		static constexpr llama_op_types type{ llama_op_types::vcur };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -745,6 +774,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::k_cache_view };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -769,6 +799,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::k_cache_view_copy };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -793,6 +824,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::vcur_transposed };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -817,6 +849,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::v_cache_view };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -841,6 +874,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::v_cache_view_copy };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -865,6 +899,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::v };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -889,6 +924,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::k };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -913,6 +949,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::q };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -938,10 +975,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::per_block };
 		static constexpr kernel_type krn_type{ kernel_type::mul_mat };
 		static constexpr llama_op_types type{ llama_op_types::kq };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -967,10 +1005,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::per_block };
 		static constexpr kernel_type krn_type{ kernel_type::softmax };
 		static constexpr llama_op_types type{ llama_op_types::kq_soft_max };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -996,10 +1035,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::per_block };
 		static constexpr kernel_type krn_type{ kernel_type::mul_mat };
 		static constexpr llama_op_types type{ llama_op_types::kqv };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1024,6 +1064,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::kqv_merged };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1048,6 +1089,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::kqv_merged_cont };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1073,10 +1115,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::per_block };
 		static constexpr kernel_type krn_type{ kernel_type::mul_mat };
 		static constexpr llama_op_types type{ llama_op_types::kqv_out };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1104,6 +1147,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::ffn_inp };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1130,6 +1174,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::norm_out };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1157,6 +1202,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::ffn_norm };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1182,10 +1228,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::per_block };
 		static constexpr kernel_type krn_type{ kernel_type::mul_mat };
 		static constexpr llama_op_types type{ llama_op_types::ffn_gate };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1212,6 +1259,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::ffn_silu };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1237,10 +1285,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::per_block };
 		static constexpr kernel_type krn_type{ kernel_type::mul_mat };
 		static constexpr llama_op_types type{ llama_op_types::ffn_up };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1268,6 +1317,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::ffn_gate_par };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1293,10 +1343,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::per_block };
 		static constexpr kernel_type krn_type{ kernel_type::mul_mat };
 		static constexpr llama_op_types type{ llama_op_types::ffn_out };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1324,6 +1375,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::l_out };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1351,6 +1403,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::attn_residual };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1378,6 +1431,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::prev_residual };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1404,6 +1458,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::final_norm };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1431,6 +1486,7 @@ namespace rt_tm {
 		static constexpr llama_op_types type{ llama_op_types::result_norm };
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<impl_indices indices, typename derived_type_new, typename model_traits_type_new, typename kernel_type_profile_traits_type>
@@ -1456,10 +1512,11 @@ namespace rt_tm {
 		static constexpr layer_op_type layer_type{ layer_op_type::global_output };
 		static constexpr kernel_type krn_type{ kernel_type::mul_mat };
 		static constexpr llama_op_types type{ llama_op_types::result_output };
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_start{};
-		array<latch_wrapper_holder, model_traits_type::block_count> sync_flag_end{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_start{};
+		array<slim_latch, model_traits_type::block_count> sync_flag_end{};
 		static constexpr uint64_t count{ total_required_bytes / sizeof(output_type) };
 		output_type* data{};
+		int32_t value{};
 	};
 
 	template<typename derived_type_new, uint64_t index> struct get_adjacent_value {

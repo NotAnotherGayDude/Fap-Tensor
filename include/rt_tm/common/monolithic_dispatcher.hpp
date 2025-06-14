@@ -29,27 +29,33 @@ namespace rt_tm {
 
 	template<impl_indices indices_new, device_type dev_type, kernel_type type, single_input core_type> struct kernel_dispatcher
 		: public kernel_traits<type, core_type, typename core_type::input_type01> {
-		RT_TM_FORCE_INLINE static void impl(core_type& params) {
+		RT_TM_FORCE_INLINE static void impl(core_type& params, size_t thread_index, size_t thread_count) {
+			size_t offset = params.count * (thread_index / thread_count);
 			kernel_dispatcher_impl<indices_new.cpu_index, type, typename core_type::transform_type, typename core_type::output_type,
-				typename core_type::input_type01::output_type>::impl(params.count, params.data, get_adjacent_value<core_type, 0>::impl(params).data);
+				typename core_type::input_type01::output_type>::impl(params.count / thread_count, params.data, get_adjacent_value<core_type, 0>::impl(params).data);
+			++params.value;
 		}
 	};
 
 	template<impl_indices indices_new, device_type dev_type, kernel_type type, double_input core_type> struct kernel_dispatcher<indices_new, dev_type, type, core_type>
 		: public kernel_traits<type, core_type, typename core_type::input_type01, typename core_type::input_type02> {
-		RT_TM_FORCE_INLINE static void impl(core_type& params) {
+		RT_TM_FORCE_INLINE static void impl(core_type& params, size_t thread_index, size_t thread_count) {
+			size_t offset = params.count * (thread_index / thread_count);
 			kernel_dispatcher_impl<indices_new.cpu_index, type, typename core_type::transform_type, typename core_type::output_type, typename core_type::input_type01::output_type,
-				typename core_type::input_type02::output_type>::impl(params.count, params.data, get_adjacent_value<core_type, 0>::impl(params).data,
+				typename core_type::input_type02::output_type>::impl(params.count / thread_count, params.data, get_adjacent_value<core_type, 0>::impl(params).data,
 				get_adjacent_value<core_type, 1>::impl(params).data);
+			++params.value;
 		}
 	};
 
 	template<impl_indices indices_new, device_type dev_type, kernel_type type, triple_input core_type> struct kernel_dispatcher<indices_new, dev_type, type, core_type>
 		: public kernel_traits<type, core_type, typename core_type::input_type01, typename core_type::input_type02, typename core_type::input_type03> {
-		RT_TM_FORCE_INLINE static void impl(core_type& params) {
+		RT_TM_FORCE_INLINE static void impl(core_type& params, size_t thread_index, size_t thread_count) {
+			size_t offset = params.count * (thread_index / thread_count);
 			kernel_dispatcher_impl<indices_new.cpu_index, type, typename core_type::transform_type, typename core_type::output_type, typename core_type::input_type01::output_type,
-				typename core_type::input_type02::output_type, typename core_type::input_type03::output_type>::impl(params.count, params.data,
+				typename core_type::input_type02::output_type, typename core_type::input_type03::output_type>::impl(params.count / thread_count, params.data,
 				get_adjacent_value<core_type, 0>::impl(params).data, get_adjacent_value<core_type, 1>::impl(params).data, get_adjacent_value<core_type, 2>::impl(params).data);
+			++params.value;
 		}
 	};
 

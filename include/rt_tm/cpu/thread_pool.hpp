@@ -218,7 +218,7 @@ namespace rt_tm {
 				output_type* ptr = static_cast<output_type*>(memory_buffer.claim_memory(core.total_required_bytes));
 				if constexpr (array_type<decltype(core.data)>) {
 					for (uint64_t x = 0; x < decltype(core.data)::size_val; ++x) {
-						core.data[x] = ptr;
+						core.data[static_cast<llama_op_types>(x)] = ptr;
 					}
 				} else {
 					core.data = ptr;
@@ -228,8 +228,8 @@ namespace rt_tm {
 	};
 
 	thread_local stop_watch<std::chrono::nanoseconds> stop_watch_val{ 0 };
-	array<std::atomic_uint64_t, static_cast<size_t>(llama_op_types::count) + 1> avg_count{};
-	array<std::atomic_uint64_t, static_cast<size_t>(llama_op_types::count) + 1> count{};
+	array<std::atomic_uint64_t, static_cast<llama_op_types>(static_cast<size_t>(llama_op_types::count) + 1)> avg_count{};
+	array<std::atomic_uint64_t, static_cast<llama_op_types>(static_cast<size_t>(llama_op_types::count) + 1)> count{};
 
 	template<impl_indices indices, typename base_type_new> struct thread_function : public base_type_new {
 		RT_TM_FORCE_INLINE thread_function() noexcept								   = default;
@@ -240,7 +240,8 @@ namespace rt_tm {
 		using output_type															   = base_type_new::output_type;
 		using base_type																   = base_type_new;
 		RT_TM_FORCE_INLINE void thread_impl(uint64_t thread_index, uint64_t thread_count) {
-			kernel_dispatcher<indices, device_type::cpu, base_type::krn_type, base_type>::impl(*this);
+			kernel_dispatcher<indices, device_type::cpu, base_type::krn_type, base_type>::impl(*this, thread_index, thread_count);
+			bnch_swt::doNotOptimizeAway(this->value);
 		}
 	};
 
@@ -252,11 +253,10 @@ namespace rt_tm {
 		RT_TM_FORCE_INLINE thread_function(thread_function&&) noexcept				   = delete;
 		using output_type															   = base_type_new::output_type;
 		using base_type																   = base_type_new;
-		RT_TM_FORCE_INLINE void thread_impl(uint64_t thread_index, uint64_t thread_count, uint64_t current_index = 0) {
-			stop_watch_val.reset();
-			this->sync_flag_start[current_index].arrive_and_wait();
-			kernel_dispatcher<indices, device_type::cpu, base_type::krn_type, base_type>::impl(*this);
-			this->sync_flag_end[current_index].arrive_and_wait();
+		RT_TM_FORCE_INLINE void thread_impl(uint64_t thread_index, uint64_t thread_count) {
+			this->sync_flag_start[thread_index].arrive_and_wait();
+			kernel_dispatcher<indices, device_type::cpu, base_type::krn_type, base_type>::impl(*this, thread_index, thread_count);
+			this->sync_flag_end[thread_index].arrive_and_wait();
 			count[base_type::type].fetch_add(stop_watch_val.total_time_elapsed_uint64(), std::memory_order_release);
 			avg_count[base_type::type].fetch_add(1, std::memory_order_release);
 		}
@@ -325,18 +325,18 @@ namespace rt_tm {
 		}
 
 		template<template<impl_indices, typename> typename thread_function, uint64_t current_index = 0>
-		RT_TM_FORCE_INLINE void impl_per_block(uint64_t thread_index, uint64_t thread_count, uint64_t current_index_new) {
+		RT_TM_FORCE_INLINE void impl_per_block(uint64_t thread_index, uint64_t thread_count) {
 			if constexpr (current_index < per_block_count) {
 				static constexpr op_type_type op_type = per_block[current_index];
 				using core_traits_type				  = core_traits<indices, op_type, derived_type_new, model_traits_type_new, kernel_type_profile_traits_type>;
 				if constexpr (blocking<core_traits_type>) {
 					static_cast<thread_function<indices, core_traits_type>*>(static_cast<core_traits_type*>(static_cast<derived_type_new*>(this)))
-						->thread_impl(thread_index, thread_count, current_index_new);
+						->thread_impl(thread_index, thread_count);
 				} else {
 					static_cast<thread_function<indices, core_traits_type>*>(static_cast<core_traits_type*>(static_cast<derived_type_new*>(this)))
 						->thread_impl(thread_index, thread_count);
 				}
-				impl_per_block<thread_function, current_index + 1>(thread_index, thread_count, current_index_new);
+				impl_per_block<thread_function, current_index + 1>(thread_index, thread_count);
 			}
 		}
 
@@ -359,7 +359,7 @@ namespace rt_tm {
 		template<template<impl_indices, typename> typename thread_function> RT_TM_FORCE_INLINE void impl(uint64_t thread_index, uint64_t thread_count) {
 			impl_global_input<thread_function>(thread_index, thread_count);
 			for (uint64_t x = 0; x < model_traits_type::block_count; ++x) {
-				impl_per_block<thread_function>(thread_index, thread_count, x);
+				impl_per_block<thread_function>(thread_index, thread_count);
 			}
 			impl_global_output<thread_function>(thread_index, thread_count);
 		};
@@ -415,10 +415,11 @@ namespace rt_tm {
 			}
 			main_thread_latch.wait();
 			for (size_t x = 0; x < static_cast<size_t>(llama_op_types::count); ++x) {
-				size_t count_new{ avg_count[x].load(std::memory_order_acquire) };
+				size_t count_new{ avg_count[static_cast<llama_op_types>(x)].load(std::memory_order_acquire) };
 				if (count_new > 0) {
-					std::cout << "TIME TO EXECUTE: " << count[x].load(std::memory_order_acquire) / avg_count[x].load(std::memory_order_acquire) << std::endl;
-					std::cout << "FOR: " << avg_count[x].load(std::memory_order_acquire) << " EXECUTIONS, FOR OP: " << kernel_names[get_kernel_type_from_llama_op(x)] << std::endl;
+					std::cout << "THREAD COUNT: " << thread_count << std::endl;
+					std::cout << "TIME TO EXECUTE: " << count[static_cast<llama_op_types>(x)].load(std::memory_order_acquire) / avg_count[static_cast<llama_op_types>(x)].load(std::memory_order_acquire) << std::endl;
+					std::cout << "FOR: " << avg_count[static_cast<llama_op_types>(x)].load(std::memory_order_acquire) << " EXECUTIONS, FOR OP: " << kernel_names[get_kernel_type_from_llama_op(x)] << std::endl;
 				}
 			}
 		}
@@ -438,8 +439,8 @@ namespace rt_tm {
 		};
 
 	  protected:
-		std::vector<latch_wrapper_holder> worker_latches{};
-		latch_wrapper_holder main_thread_latch{};
+		std::vector<slim_latch> worker_latches{};
+		slim_latch main_thread_latch{};
 		std::vector<std::thread> threads{};
 		char padding[48]{};
 		alignas(64) std::atomic_bool stop{};

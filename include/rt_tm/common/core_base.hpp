@@ -28,7 +28,7 @@ namespace rt_tm {
 
 	struct core_base_creation_data : public param_api<core_base_creation_data> {
 		std::vector<core_base_creation_data*> input_ops{};
-		array<uint64_t, 4> allocated_dims{ { 1, 1, 1, 1 } };
+		array<uint64_t, 4ull> allocated_dims{ { 1, 1, 1, 1 } };
 		std::vector<uint64_t> dependent_ops{};
 		std::vector<uint8_t> aux_params{};
 		uint64_t comparison_index{};

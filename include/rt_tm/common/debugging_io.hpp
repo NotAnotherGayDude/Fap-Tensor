@@ -138,7 +138,7 @@ namespace rt_tm {
 		static constexpr uint64_t type_size{ sizeof(uint32_t) };
 		static constexpr uint64_t op_size{ sizeof(uint32_t) };
 		std::vector<std::string> input_names{};
-		array<uint64_t, 4> dims{};
+		array<uint64_t, 4ull> dims{};
 		std::string name{};
 		data_type type{};
 		kernel_type op{};
