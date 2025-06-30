@@ -9,7 +9,7 @@
 
 #include <BnchSwt/BenchmarkSuite.hpp>
 #include <nihilus/index.hpp>
-
+/*
 template<auto valueNew> struct make_static {
 	static constexpr auto value{ valueNew };
 };
@@ -333,9 +333,6 @@ template<typename value_type> inline static constexpr auto collectSimdFullLength
 
 int main(int argc, char** argv) {
 	try {
-		keyStatsVal<test_struct>.maxLength;
-		core<test_struct> parse_val{};
-		parse_val.parse_value.operator[](nihilus::tag<0>{});
 		static constexpr auto config_v1_v2_1b_fp16_mha	 = nihilus::generate_model_config(nihilus::model_generations::v1_v2, nihilus::model_sizes::llama_1B,
 			  nihilus::kernel_type_profiles::fp16_mha, nihilus::model_arches::llama, false);
 		static constexpr auto config_v1_v2_3b_fp16_mha	 = nihilus::generate_model_config(nihilus::model_generations::v1_v2, nihilus::model_sizes::llama_3B,

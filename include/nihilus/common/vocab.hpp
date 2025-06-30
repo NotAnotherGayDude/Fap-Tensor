@@ -82,7 +82,7 @@ namespace nihilus {
 
 		std::set<token> special_eog_ids;
 
-		std::vector<char> precompiled_charsmap;
+		std::vector<uint8_t> precompiled_charsmap;
 
 		enum vocab_types get_type() const {
 			return type;
@@ -139,8 +139,6 @@ namespace nihilus {
 
 		tokens token_get(token id) const;
 
-		void init_tokenizer(enum vocab_types type_new) {};
-
 		//void tokenizer_st_partition(std::forward_list<fragment_buffer_variant>& buffer, bool parse_special) const;
 
 		std::string token_to_piece_for_cache(token token, bool special) const;
@@ -171,7 +169,7 @@ namespace nihilus {
 
 		enum llama_vocab_type get_type() const;
 		enum llama_vocab_pre_type get_pre_type() const;
-
+		f
 		uint32_t n_tokens() const;
 		uint32_t n_token_types() const;
 

@@ -195,7 +195,7 @@ namespace nihilus {
 
 	  protected:
 		std::vector<std::thread> threads{};
-		char padding[32]{};
+		char padding[40]{};
 		alignas(64) std::atomic_bool stop{};
 		char padding02[63]{};
 		alignas(64) uint64_t thread_count{};

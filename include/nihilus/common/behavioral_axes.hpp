@@ -41,7 +41,7 @@ namespace nihilus {
 		auto end   = std::chrono::high_resolution_clock::now();
 		do {
 			end = std::chrono::high_resolution_clock::now();
-		} while ((end - start).count() < nanoseconds);
+		} while ((end - start).count() < static_cast<int64_t>(nanoseconds));
 #else
 		// Linux/Unix implementation
 		auto start	= std::chrono::high_resolution_clock::now();
@@ -212,7 +212,7 @@ namespace nihilus {
 				core_traits_type::krn_type != nihilus::kernel_types::view && core_traits_type::krn_type != nihilus::kernel_types::permute &&
 				core_traits_type::krn_type != nihilus::kernel_types::reshape && core_traits_type::krn_type != nihilus::kernel_types::none;
 		}
-		NIHILUS_FORCE_INLINE static void impl(base_type& core, uint64_t thread_index, uint64_t thread_count, uint64_t current_block) {
+		NIHILUS_FORCE_INLINE static void impl(base_type& core, uint64_t thread_index, uint64_t thread_count, uint64_t) {
 			nihilus::kernel_dispatcher<config, nihilus::device_types::cpu, base_type>::impl(core, thread_index, thread_count);
 			nihilus::spinlock_nanoseconds(spinlock_time);
 		}
